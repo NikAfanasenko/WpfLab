@@ -1,6 +1,8 @@
 ﻿using CsvHelper;
+using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace WpfLab
 {
@@ -29,11 +32,28 @@ namespace WpfLab
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            ReadFile();
         }
-        private void ReadCsvFile()
+        private void ReadFile()
         {
-            using var csvreader = new CsvReader()
+            DialogService dialogService = new DialogService();
+            dialogService.OpenFileDialog();
+            TestLabel.Content = "";
+            try
+            {
+                foreach (string information in File.ReadLines(dialogService.FilePath))
+                {
+                    if (information == null)
+                    {
+                        break;
+                    }
+                    TestLabel.Content += information + "\n";
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

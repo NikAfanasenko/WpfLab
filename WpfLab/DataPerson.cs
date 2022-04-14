@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfLab
 {
+    [Serializable]
     public class DataPerson
     {
         public DateTime Date { get; set; }
